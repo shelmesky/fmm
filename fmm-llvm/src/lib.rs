@@ -30,6 +30,24 @@ pub fn compile_to_bit_code(
     Ok(module.write_bitcode_to_memory().as_slice().to_vec())
 }
 
+pub fn compile_to_bit_code_and_ir(
+    module: &Module,
+    instruction_configuration: &InstructionConfiguration,
+    target_triple: Option<&str>,
+) -> Result<(Vec<u8>, Vec<u8>), CompileError> {
+    let inkwell_context = inkwell::context::Context::create();
+    let context = Context::new(
+        &inkwell_context,
+        target_triple,
+        instruction_configuration.clone(),
+    )?;
+    let module = compile_module(&context, module)?;
+
+    let module_ir_data = module.to_string().as_bytes().to_vec();
+
+    Ok((module.write_bitcode_to_memory().as_slice().to_vec(), module_ir_data))
+}
+
 pub fn compile_to_object(
     module: &Module,
     instruction_configuration: &InstructionConfiguration,
