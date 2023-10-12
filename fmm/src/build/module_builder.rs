@@ -128,13 +128,14 @@ impl ModuleBuilder {
 
     pub fn define_anonymous_function<E>(
         &self,
+        origin_name: String,
         arguments: Vec<Argument>,
         result_type: impl Into<Type>,
         body: impl Fn(InstructionBuilder) -> Result<Block, E>,
         options: FunctionDefinitionOptions,
     ) -> Result<TypedExpression, E> {
         self.define_function(
-            self.generate_name(),
+            format!("{}_{}", self.generate_name(), origin_name),
             arguments,
             result_type,
             body,
