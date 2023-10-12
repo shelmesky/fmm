@@ -9,11 +9,11 @@ use std::{cell::RefCell, rc::Rc};
 
 #[derive(Debug)]
 pub struct ModuleBuilder {
-    name_generator: Rc<RefCell<NameGenerator>>,
-    variable_declarations: RefCell<Vec<VariableDeclaration>>,
-    function_declarations: RefCell<Vec<FunctionDeclaration>>,
-    variable_definitions: RefCell<Vec<VariableDefinition>>,
-    function_definitions: RefCell<Vec<FunctionDefinition>>,
+    pub name_generator: Rc<RefCell<NameGenerator>>,
+    pub variable_declarations: RefCell<Vec<VariableDeclaration>>,
+    pub function_declarations: RefCell<Vec<FunctionDeclaration>>,
+    pub variable_definitions: RefCell<Vec<VariableDefinition>>,
+    pub function_definitions: RefCell<Vec<FunctionDefinition>>,
 }
 
 impl ModuleBuilder {
